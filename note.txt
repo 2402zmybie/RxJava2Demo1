@@ -1,0 +1,46 @@
+
+
+
+03 RxJava创建型操作符:
+    被观察者上游 Observable
+    观察者下游 Observer 简化版: Consumer
+    create: 使用者自己发射事件
+    just: 内部自己发射, 相当于onNext onComplete
+    fromArray: 发射数组对象
+    empty: 内部自己发射的,下游默认是Object, 无法发射有值事件, 只会发射onComplete
+    range: 内部自己发射的,start1 累加, count5
+
+变换操作符和过滤操作符都是插在上游和下游之间:
+04 RxJava变换型操作符
+上游-----> (变换操作) ----> 下游
+    map:
+    flatMap
+    contactMap
+    groupBy
+    buffer
+
+
+05 RxJava过滤型操作符
+    filter
+    take
+    disctink
+    elementAt
+
+
+06 RxJava条件型操作符
+    all: All全部为true才是true, 只要有一个为false, 就是false
+    any: 全部为false,才是false, 只要有一个为true,就是true
+    contain: 是否包含
+
+
+07 合并操作符
+    startWith:  被观察1.startWith(被观察者2) : 先执行被观察者2, 然后执行被观察者1的事件
+    concat/concatWith
+        concatWith:  被观察1.startWith(被观察者2) : 先执行被观察者1, 然后执行被观察者2的事件
+        concat: 最多只能合并四个被观察者
+    merge:
+    zip
+
+08 RxJava线程切换
+    subscribeOn(Schedulers.io())
+    .observeOn(AndroidSchedulers.mainThread())

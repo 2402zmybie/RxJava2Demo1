@@ -50,4 +50,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation project(path: ':router')
+    implementation project(path: ':annotation')
+    //注解处理器
+    annotationProcessor project(path: ':annotation_compiler')
 }

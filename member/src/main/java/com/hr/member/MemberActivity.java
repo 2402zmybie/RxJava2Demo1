@@ -2,7 +2,9 @@ package com.hr.member;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import com.hr.annotation.BindPath;
 
+@BindPath("member/member")
 public class MemberActivity extends AppCompatActivity {
 
     @Override

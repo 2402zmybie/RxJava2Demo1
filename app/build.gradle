@@ -40,6 +40,9 @@ dependencies {
 
     //加入依赖
     implementation project(path: ':router')
+    implementation project(path: ':annotation')
+    //注解处理器
+    annotationProcessor project(path: ':annotation_compiler')
     if(!IS_APPLICATION.toBoolean()) {
         //不是library
         implementation project(path: ':login')

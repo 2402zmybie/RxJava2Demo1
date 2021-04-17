@@ -1,2 +1,5 @@
 rootProject.name='RxJava2Demo1'
 include ':app'
+include ':router'
+include ':login'
+include ':member'

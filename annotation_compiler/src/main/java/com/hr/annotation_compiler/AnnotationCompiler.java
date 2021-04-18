@@ -10,14 +10,11 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
+import javax.tools.JavaFileObject;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
-//注册当前类为注解处理器
 @AutoService(Process.class)
 public class AnnotationCompiler extends AbstractProcessor {
 
@@ -34,10 +31,7 @@ public class AnnotationCompiler extends AbstractProcessor {
         return processingEnv.getSourceVersion();
     }
 
-    /**
-     * 声明注解处理器要处理的注解
-     * @return
-     */
+
     @Override
     public Set<String> getSupportedAnnotationTypes() {
         Set<String> types = new HashSet<>();
@@ -63,10 +57,37 @@ public class AnnotationCompiler extends AbstractProcessor {
             Writer writer = null;
             String className = "ActivityUtil" + System.currentTimeMillis();
             try {
-                filer.createSourceFile("com.hr.util" + className );
+                JavaFileObject sourceFile = filer.createSourceFile("com.hr.util" + className);
+                writer = sourceFile.openWriter();
+                StringBuffer stringBuffer = new StringBuffer();
+                stringBuffer.append("package com.hr.util;\n");
+                stringBuffer.append("package com.hr.router;\n" +
+                        "\n" +
+                        "public class " +className + " implements IRouter {\n" +
+                        "    \n" +
+                        "    \n" +
+                        "    @Override\n" +
+                        "    public void putActivity() {\n");
+                Iterator<String> iterator = map.keySet().iterator();
+                while (iterator.hasNext()) {
+                    String key = iterator.next();
+                    String value = map.get(key);
+                    stringBuffer.append("Arouter.getInstance().addActivity(" + key +"," + value+  ");\n");
+                }
+                stringBuffer.append("\n}\n}\n");
+                writer.write(stringBuffer.toString());
+
 
             } catch (IOException e) {
                 e.printStackTrace();
+            }finally {
+                if(writer != null) {
+                    try {
+                        writer.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
         return false;
